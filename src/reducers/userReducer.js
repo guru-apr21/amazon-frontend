@@ -14,6 +14,7 @@ const userReducer = (state = initialState, action) => {
 };
 
 export const setUser = (user) => {
+  window.localStorage.setItem('loggedInUser', JSON.stringify(user));
   return {
     type: 'SET_USER',
     payload: user,
@@ -21,6 +22,7 @@ export const setUser = (user) => {
 };
 
 export const clearUser = () => {
+  window.localStorage.clear();
   return {
     type: 'CLEAR_USER',
   };

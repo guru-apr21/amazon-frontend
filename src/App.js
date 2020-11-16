@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from './components/NavBar';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './css/App.css';
 import SignIn from './components/SignIn';
+import { useDispatch } from 'react-redux';
+import { setUser } from './reducers/userReducer';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = JSON.parse(window.localStorage.getItem('loggedInUser'));
+    if (user) {
+      dispatch(setUser(user));
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Switch>
