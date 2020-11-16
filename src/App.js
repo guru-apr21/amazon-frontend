@@ -5,6 +5,7 @@ import './css/App.css';
 import SignIn from './components/SignIn';
 import { useDispatch } from 'react-redux';
 import { setUser } from './reducers/userReducer';
+import Home from './components/Home';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function App() {
     if (user) {
       dispatch(setUser(user));
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -31,6 +33,7 @@ function App() {
         </Route>
         <Route path="/">
           <NavBar></NavBar>
+          <Home />
         </Route>
       </Switch>
     </BrowserRouter>
