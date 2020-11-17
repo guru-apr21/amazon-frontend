@@ -1,7 +1,14 @@
 import React from 'react';
 import '../css/Product.css';
+import { useDispatch } from 'react-redux';
+import { addProductToCart } from '../reducers/cartReducer';
 
-function Product({ title, image, price, rating = 0 }) {
+function Product({ id, title, image, price, rating = 0 }) {
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addProductToCart());
+  };
+
   return (
     <div className="product">
       <div className="product__info">
@@ -18,7 +25,7 @@ function Product({ title, image, price, rating = 0 }) {
         </div>
       </div>
       <img src={image} alt="" />
-      <button>Add to Cart</button>
+      <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 }

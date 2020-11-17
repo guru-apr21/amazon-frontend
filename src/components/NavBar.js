@@ -1,17 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../css/NavBar.css';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../reducers/userReducer';
+import { clearCart } from '../reducers/cartReducer';
 
 function NavBar() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSignOut = () => {
+    dispatch(clearCart());
     dispatch(clearUser());
+  };
+
+  const handleCart = () => {
+    if (!user) {
+      history.push('/login');
+    }
   };
 
   return (
@@ -53,15 +62,20 @@ function NavBar() {
             <span className="navbar__optionLine2">Orders</span>
           </div>
         </Link>
-        <Link to="/cart" className="navbar__link">
-          <div style={{ flexDirection: 'row' }} className="navbar__option">
-            <ShoppingBasketIcon className="navbar__basketIcon"></ShoppingBasketIcon>
-            <span style={{ marginTop: '15px' }} className="navbar__optionLine2">
-              Cart
-            </span>
-            <span className="navbar__cartCount">0</span>
-          </div>
-        </Link>
+        <div onClick={handleCart}>
+          <Link to="/cart" className="navbar__link">
+            <div style={{ flexDirection: 'row' }} className="navbar__option">
+              <ShoppingBasketIcon className="navbar__basketIcon"></ShoppingBasketIcon>
+              <span
+                style={{ marginTop: '15px' }}
+                className="navbar__optionLine2"
+              >
+                Cart
+              </span>
+              <span className="navbar__cartCount">0</span>
+            </div>
+          </Link>
+        </div>
       </div>
     </nav>
   );

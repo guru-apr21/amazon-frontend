@@ -3,9 +3,9 @@ const initialState = null;
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_USER':
-      return { ...state, user: action.payload };
+      return { ...action.payload };
     case 'CLEAR_USER':
-      return { ...state, user: null };
+      return null;
     default:
       return state;
   }

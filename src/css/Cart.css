@@ -1,0 +1,24 @@
+.cart {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+}
+
+.cart__empty {
+  display: flex;
+  padding-top: 100px;
+}
+
+.cart__empty img {
+  margin-left: 40px;
+}
+
+.cart__empty h2 {
+  padding-left: 10px;
+  margin-top: 20px;
+}
+
+.cart__ad {
+  width: 100%;
+  margin-bottom: 10px;
+}

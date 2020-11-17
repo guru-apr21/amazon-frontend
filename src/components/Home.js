@@ -4,6 +4,8 @@ import '../css/Home.css';
 import { getAllProducts } from '../services/productService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from '../reducers/productReducer';
+import { getCartItems } from '../services/cartServices';
+import { setCart } from '../reducers/cartReducer';
 
 function Home() {
   const dispatch = useDispatch();
@@ -13,6 +15,14 @@ function Home() {
     getAllProducts()
       .then((data) => dispatch(setProducts(data)))
       .catch((err) => console.log(err));
+
+    getCartItems()
+      .then((data) => {
+        console.log(data);
+        dispatch(setCart(data));
+      })
+      .catch((err) => console.log(err));
+
     // eslint-disable-next-line
   }, []);
 
@@ -32,9 +42,7 @@ function Home() {
             title={product.title}
             image={`https://${product.images[0]}`}
             price={product.price}
-          >
-            {' '}
-          </Product>
+          ></Product>
         ))}
       </div>
     </div>

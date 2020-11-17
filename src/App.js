@@ -6,6 +6,7 @@ import SignIn from './components/SignIn';
 import { useDispatch } from 'react-redux';
 import { setUser } from './reducers/userReducer';
 import Home from './components/Home';
+import Cart from './components/Cart';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function App() {
         </Route>
         <Route path="/cart">
           <NavBar></NavBar>
-          <h1>Cart</h1>
+          <Cart></Cart>
         </Route>
         <Route path="/">
           <NavBar></NavBar>
