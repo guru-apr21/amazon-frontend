@@ -1,3 +1,5 @@
+import { getAllProducts } from '../services/productService';
+
 const initialState = [];
 
 const productReducer = (state = initialState, action) => {
@@ -9,10 +11,10 @@ const productReducer = (state = initialState, action) => {
   }
 };
 
-export const setProducts = (products) => {
-  return {
-    type: 'SET_PRODUCTS',
-    payload: products,
+export const setProducts = () => {
+  return async (dispatch) => {
+    const products = await getAllProducts();
+    dispatch({ type: 'SET_PRODUCTS', payload: products });
   };
 };
 

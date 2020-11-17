@@ -1,3 +1,5 @@
+import { addToCart, getCartItems } from '../services/cartService';
+
 const initialState = [];
 
 const cartReducer = (state = initialState, action) => {
@@ -7,16 +9,19 @@ const cartReducer = (state = initialState, action) => {
     case 'CLEAR_CART':
       return [];
     case 'ADD_TO_CART':
-      return state;
+      return [...action.payload];
     default:
       return state;
   }
 };
 
-export const setCart = (cart) => {
-  return {
-    type: 'SET_CART',
-    payload: cart,
+export const setCart = () => {
+  return async (dispatch) => {
+    const cart = await getCartItems();
+    dispatch({
+      type: 'SET_CART',
+      payload: cart,
+    });
   };
 };
 
@@ -26,9 +31,13 @@ export const clearCart = () => {
   };
 };
 
-export const addProductToCart = (id) => {
-  return {
-    type: 'ADD_TO_CART',
+export const addProductToCart = (productId) => {
+  return async (dispatch) => {
+    const cart = await addToCart(productId);
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: cart,
+    });
   };
 };
 
