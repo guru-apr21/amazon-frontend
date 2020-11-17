@@ -1,6 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeProductFromCart } from '../reducers/cartReducer';
 
 function CartProduct({ image, title, price, id, rating }) {
+  const dispatch = useDispatch();
+  const handleRemove = () => {
+    dispatch(removeProductFromCart(id));
+  };
+
   return (
     <div className="cartProduct">
       <img src={image} alt=""></img>
@@ -12,7 +19,7 @@ function CartProduct({ image, title, price, id, rating }) {
           .map((_, i) => (
             <p key={i}>⭐</p>
           ))}
-        <button>Remove from basket</button>
+        <button onClick={handleRemove}>Remove from basket</button>
       </div>
     </div>
   );

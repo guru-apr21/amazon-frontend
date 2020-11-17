@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/api';
+const baseUrl = 'http://localhost:3001/api/cart';
 
 let token;
 const getToken = () => {
@@ -13,7 +13,7 @@ const getToken = () => {
 export const getCartItems = async () => {
   token = getToken();
   if (token) {
-    const { data } = await axios.get(`${baseUrl}/cart`, {
+    const { data } = await axios.get(baseUrl, {
       headers: { 'x-access-token': token },
     });
     return data;
@@ -25,10 +25,22 @@ export const addToCart = async (id) => {
   try {
     token = getToken();
     const { data } = await axios.post(
-      `${baseUrl}/cart`,
+      baseUrl,
       { productId: id },
       { headers: { 'x-access-token': token } }
     );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeFromCart = async (id) => {
+  try {
+    token = getToken();
+    const { data } = await axios.put(`${baseUrl}/${id}`, null, {
+      headers: { 'x-access-token': token },
+    });
     return data;
   } catch (error) {
     console.log(error);
