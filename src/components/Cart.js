@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import '../css/Cart.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../reducers/cartReducer';
-import { getCartItems } from '../services/cartService';
 import CartProduct from './CartProduct';
 
 function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+
   useEffect(() => {
-    getCartItems()
-      .then((data) => {
-        console.log(data);
-        dispatch(setCart(data));
-      })
-      .catch((err) => console.log(err));
-  });
+    dispatch(setCart());
+  }, [dispatch]);
 
   return (
     <div className="cart">

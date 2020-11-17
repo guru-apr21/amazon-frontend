@@ -5,8 +5,9 @@ import { addProductToCart } from '../reducers/cartReducer';
 
 function Product({ id, title, image, price, rating = 0 }) {
   const dispatch = useDispatch();
-  const handleAddToCart = () => {
-    dispatch(addProductToCart());
+
+  const handleAddToCart = async () => {
+    dispatch(addProductToCart(id));
   };
 
   return (
