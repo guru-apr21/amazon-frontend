@@ -4,7 +4,7 @@ import '../css/Home.css';
 import { getAllProducts } from '../services/productService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from '../reducers/productReducer';
-import { getCartItems } from '../services/cartServices';
+import { getCartItems } from '../services/cartService';
 import { setCart } from '../reducers/cartReducer';
 
 function Home() {
