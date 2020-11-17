@@ -6,6 +6,8 @@ const cartReducer = (state = initialState, action) => {
       return [...action.payload];
     case 'CLEAR_CART':
       return [];
+    case 'ADD_TO_CART':
+      return state;
     default:
       return state;
   }
@@ -24,6 +26,10 @@ export const clearCart = () => {
   };
 };
 
-export const addProductToCart = () => {};
+export const addProductToCart = (id) => {
+  return {
+    type: 'ADD_TO_CART',
+  };
+};
 
 export default cartReducer;
