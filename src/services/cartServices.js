@@ -20,3 +20,13 @@ export const getCartItems = async () => {
   }
   return [];
 };
+
+export const addToCart = async (id) => {
+  token = getToken();
+  const { data } = await axios.post(
+    `${baseUrl}/cart`,
+    { productId: id },
+    { headers: { 'x-access-token': token } }
+  );
+  return data;
+};
