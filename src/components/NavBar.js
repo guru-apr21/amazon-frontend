@@ -9,6 +9,7 @@ import { clearCart } from '../reducers/cartReducer';
 
 function NavBar() {
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -72,7 +73,7 @@ function NavBar() {
               >
                 Cart
               </span>
-              <span className="navbar__cartCount">0</span>
+              <span className="navbar__cartCount">{cart.length}</span>
             </div>
           </Link>
         </div>
