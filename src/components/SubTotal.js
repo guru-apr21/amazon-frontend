@@ -15,18 +15,19 @@ function SubTotal() {
         value={getCartTotal(cart)}
         displayType={'text'}
         thousandSeparator={true}
-        prefix={'₹'}
         renderText={(value) => (
-          <div>
-            <p>Subtotal ({getTotalItemsInCart(cart)} items):</p>
-            <p>
-              <strong>{value}</strong>
+          <div className="subTotal__box">
+            <p className="subTotal__info">
+              Subtotal ({getTotalItemsInCart(cart)} items):
+            </p>
+            <p className="subTotal__info">
+              ₹ <strong>{value}</strong>
             </p>
           </div>
         )}
       ></CurrencyFormat>
 
-      <button>Proceed to CheckOut</button>
+      <button>Proceed to Buy</button>
     </div>
   );
 }
