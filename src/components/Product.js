@@ -1,13 +1,21 @@
 import React from 'react';
 import '../css/Product.css';
-import { useDispatch } from 'react-redux';
-import { addProductToCart } from '../reducers/cartReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addProductToCart,
+  updateProductQuantity,
+} from '../reducers/cartReducer';
 
 function Product({ id, title, image, price, rating = 0 }) {
   const dispatch = useDispatch();
+  const product = useSelector((state) =>
+    state.cart.find((item) => item.productId._id === id)
+  );
 
   const handleAddToCart = async () => {
-    dispatch(addProductToCart(id));
+    !product
+      ? dispatch(addProductToCart(id))
+      : dispatch(updateProductQuantity(id, product.quantity + 1));
   };
 
   return (

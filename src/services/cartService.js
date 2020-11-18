@@ -55,7 +55,6 @@ export const updateQuantity = async (id, quantity) => {
       { productId: id, quantity },
       { headers: { 'x-access-token': token } }
     );
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err);
