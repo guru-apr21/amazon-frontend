@@ -46,3 +46,18 @@ export const removeFromCart = async (id) => {
     console.log(error);
   }
 };
+
+export const updateQuantity = async (id, quantity) => {
+  try {
+    token = getToken();
+    const { data } = await axios.post(
+      baseUrl,
+      { productId: id, quantity },
+      { headers: { 'x-access-token': token } }
+    );
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};

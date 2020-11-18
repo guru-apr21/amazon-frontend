@@ -3,6 +3,7 @@ import '../css/Cart.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../reducers/cartReducer';
 import CartProduct from './CartProduct';
+import SubTotal from './SubTotal';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function Cart() {
           <>
             {cart.map((product) => (
               <CartProduct
+                quantity={product.quantity}
                 key={product.productId._id}
                 id={product.productId._id}
                 image={`https://${product.productId.images[0]}`}
@@ -44,7 +46,7 @@ function Cart() {
         )}
       </div>
       <div className="cart__right">
-        <h1>Hello</h1>
+        {cart.length > 0 && <SubTotal></SubTotal>}
       </div>
     </div>
   );

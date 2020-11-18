@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../reducers/userReducer';
-import { clearCart } from '../reducers/cartReducer';
+import { clearCart, getTotalItemsInCart } from '../reducers/cartReducer';
 
 function NavBar() {
   const user = useSelector((state) => state.user);
@@ -73,7 +73,9 @@ function NavBar() {
               >
                 Cart
               </span>
-              <span className="navbar__cartCount">{cart.length}</span>
+              <span className="navbar__cartCount">
+                {cart.length > 0 ? getTotalItemsInCart(cart) : 0}
+              </span>
             </div>
           </Link>
         </div>
