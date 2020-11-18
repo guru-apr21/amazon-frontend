@@ -8,10 +8,15 @@ import {
 
 function Product({ id, title, image, price, rating = 0 }) {
   const dispatch = useDispatch();
+
+  // Find whether the product to be added is in the cart or not
+  // if yes returns the product details
   const product = useSelector((state) =>
     state.cart.find((item) => item.productId._id === id)
   );
 
+  // If product to be added is in the cart updates the quantity of the
+  // product by dispatching appropriate actions
   const handleAddToCart = async () => {
     !product
       ? dispatch(addProductToCart(id))
