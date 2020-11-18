@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import '../css/NavBar.css';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../reducers/userReducer';
-import { clearCart, getTotalItemsInCart } from '../reducers/cartReducer';
+import {
+  clearCart,
+  getTotalItemsInCart,
+  setCart,
+} from '../reducers/cartReducer';
 
 function NavBar() {
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    dispatch(setCart());
+  }, [dispatch]);
 
   const handleSignOut = () => {
     dispatch(clearCart());

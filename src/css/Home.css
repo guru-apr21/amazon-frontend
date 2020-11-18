@@ -1,6 +1,7 @@
 .home {
   max-width: 1500px;
   margin: 0 auto;
+  background-color: #eaeded;
 }
 
 .home__banner {

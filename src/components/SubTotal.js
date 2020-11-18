@@ -3,8 +3,10 @@ import '../css/SubTotal.css';
 import CurrencyFormat from 'react-currency-format';
 import { useSelector } from 'react-redux';
 import { getCartTotal, getTotalItemsInCart } from '../reducers/cartReducer';
+import { useHistory } from 'react-router-dom';
 
 function SubTotal() {
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
 
   return (
@@ -27,7 +29,7 @@ function SubTotal() {
         )}
       ></CurrencyFormat>
 
-      <button>Proceed to Buy</button>
+      <button onClick={() => history.push('/payment')}>Proceed to Buy</button>
     </div>
   );
 }

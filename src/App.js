@@ -8,6 +8,13 @@ import { setUser } from './reducers/userReducer';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import NotFound from './components/NotFound';
+import Payment from './components/Payment';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const promise = loadStripe(
+  'pk_test_51HhUbGDRaW3L2zxro7dCQpW3o6FKPZokTqs58kzDLoIpRuLtPmCGK126aNWHjOu102rPhvVEzOR0R2B4VDBs9u1D00lkMClOgU'
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -29,9 +36,14 @@ function App() {
         <Route path="/orders">
           <h1>Orders</h1>
         </Route>
-        <Route path="/cart">
-          <NavBar></NavBar>
-          <Cart></Cart>
+        <Route exact={true} path="/cart">
+          <NavBar />
+          <Cart />
+        </Route>
+        <Route path="/payment">
+          <Elements stripe={promise}>
+            <Payment />
+          </Elements>
         </Route>
         <Route exact={true} path="/">
           <NavBar></NavBar>
