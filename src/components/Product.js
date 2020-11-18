@@ -34,7 +34,12 @@ function Product({ id, title, image, price, rating = 0 }) {
         </div>
       </div>
       <img src={image} alt="" />
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button
+        disabled={product && product.quantity > 9}
+        onClick={handleAddToCart}
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
