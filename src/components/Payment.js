@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Payment.css';
 import { useSelector, useDispatch } from 'react-redux';
-import PaymentProduct from './PaymentProduct';
 import {
   deleteCartItems,
   getCartTotal,
@@ -11,6 +10,7 @@ import {
 import { Link, useHistory } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
+import CartProduct from './CartProduct';
 import {
   confirmPayment,
   createPaymentIntent,
@@ -68,6 +68,7 @@ function Payment() {
       const data = await confirmPayment(paymentMethod.id, paymentIntentId);
       if (data === 'success') {
         dispatch(deleteCartItems());
+        setProcessing(false);
         history.replace('/orders');
       }
     }
@@ -96,7 +97,7 @@ function Payment() {
           </div>
           <div className="payment__items">
             {cart.map((product) => (
-              <PaymentProduct
+              <CartProduct
                 quantity={product.quantity}
                 key={product.productId._id}
                 id={product.productId._id}
@@ -104,7 +105,7 @@ function Payment() {
                 title={product.productId.title}
                 price={product.productId.price}
                 rating={product.productId.rating}
-              ></PaymentProduct>
+              ></CartProduct>
             ))}
           </div>
         </div>
