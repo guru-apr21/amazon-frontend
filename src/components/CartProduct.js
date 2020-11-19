@@ -7,7 +7,15 @@ import {
 import '../css/cartProduct.css';
 import CurrencyFormat from 'react-currency-format';
 
-function CartProduct({ image, title, price, id, rating = 5, quantity }) {
+function CartProduct({
+  image,
+  title,
+  price,
+  id,
+  rating = 5,
+  quantity,
+  hideButtons,
+}) {
   const dispatch = useDispatch();
   const handleRemove = () => {
     dispatch(removeProductFromCart(id));
@@ -47,24 +55,29 @@ function CartProduct({ image, title, price, id, rating = 5, quantity }) {
               <p key={i}>⭐</p>
             ))}
         </div>
-        <div className="cartProduct__quantity">
-          <button
-            disabled={price > 50000 || quantity > 9}
-            onClick={handleIncrement}
-          >
-            +
+
+        {!hideButtons && (
+          <div className="cartProduct__quantity">
+            <button
+              disabled={price > 50000 || quantity > 9}
+              onClick={handleIncrement}
+            >
+              +
+            </button>
+            <span>{quantity}</span>
+            <button
+              disabled={price > 50000 || quantity < 2}
+              onClick={handleDecrement}
+            >
+              -
+            </button>
+          </div>
+        )}
+        {!hideButtons && (
+          <button className="cartProduct__removeButton" onClick={handleRemove}>
+            Remove from basket
           </button>
-          <span>{quantity}</span>
-          <button
-            disabled={price > 50000 || quantity < 2}
-            onClick={handleDecrement}
-          >
-            -
-          </button>
-        </div>
-        <button className="cartProduct__removeButton" onClick={handleRemove}>
-          Remove from basket
-        </button>
+        )}
       </div>
     </div>
   );
