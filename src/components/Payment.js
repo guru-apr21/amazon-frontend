@@ -125,7 +125,7 @@ function Payment() {
                   value={getCartTotal(cart)}
                   displayType={'text'}
                   thousandSeparator={true}
-                  renderText={(value) => <p>Order Total: ₹{value}</p>}
+                  renderText={(value) => <h3>Order Total: ₹{value}</h3>}
                 ></CurrencyFormat>
                 <button type="submit" disabled={processing || disabled}>
                   <span>{processing ? 'Processing' : 'Buy Now'}</span>

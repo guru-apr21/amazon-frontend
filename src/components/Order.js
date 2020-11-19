@@ -1,6 +1,5 @@
 import React from 'react';
 import '../css/Order.css';
-import moment from 'moment';
 import CartProduct from './CartProduct';
 import CurrencyFormat from 'react-currency-format';
 

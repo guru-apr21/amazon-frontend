@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrders } from '../reducers/orderReducer';
 import Order from './Order';
+import '../css/orders.css';
 
 function Orders() {
   const user = useSelector((state) => state.user);
@@ -19,7 +20,7 @@ function Orders() {
       <h1>Your Orders</h1>
       <div className="orders__order">
         {orders?.map((order) => (
-          <Order order={order}></Order>
+          <Order key={order._id} order={order}></Order>
         ))}
       </div>
     </div>
