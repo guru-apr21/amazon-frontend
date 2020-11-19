@@ -6,6 +6,8 @@ const orderReducer = (state = [], action) => {
       return [...state, action.payload];
     case 'SET_ORDERS':
       return action.payload;
+    case 'CLEAR_ORDERS':
+      return [];
     default:
       return state;
   }
@@ -26,6 +28,12 @@ export const setOrders = () => {
   return async (dispatch) => {
     const { orders } = await getOrders();
     dispatch({ type: 'SET_ORDERS', payload: orders });
+  };
+};
+
+export const clearOrders = () => {
+  return {
+    type: 'CLEAR_ORDERS',
   };
 };
 
