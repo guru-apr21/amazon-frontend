@@ -108,27 +108,29 @@ function Payment() {
             ))}
           </div>
         </div>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Payment Method</h3>
+        {cart.length > 0 && (
+          <div className="payment__section">
+            <div className="payment__title">
+              <h3>Payment Method</h3>
+            </div>
+            <div className="payment__details">
+              <form onSubmit={handleSubmit}>
+                <CardElement onChange={handleChange}></CardElement>
+                <CurrencyFormat
+                  thousandSpacing={'2s'}
+                  decimalScale={2}
+                  value={getCartTotal(cart)}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  renderText={(value) => <p>Order Total: ₹{value}</p>}
+                ></CurrencyFormat>
+                <button type="submit" disabled={processing || disabled}>
+                  <span>{processing ? 'Processing' : 'Buy Now'}</span>
+                </button>
+              </form>
+            </div>
           </div>
-          <div className="payment__details">
-            <form onSubmit={handleSubmit}>
-              <CardElement onChange={handleChange}></CardElement>
-              <CurrencyFormat
-                thousandSpacing={'2s'}
-                decimalScale={2}
-                value={getCartTotal(cart)}
-                displayType={'text'}
-                thousandSeparator={true}
-                renderText={(value) => <p>Order Total: ₹{value}</p>}
-              ></CurrencyFormat>
-              <button type="submit" disabled={processing || disabled}>
-                <span>{processing ? 'Processing' : 'Buy Now'}</span>
-              </button>
-            </form>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
