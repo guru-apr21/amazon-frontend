@@ -5,6 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../reducers/userReducer';
+import { clearOrders } from '../reducers/orderReducer';
 import {
   clearCart,
   getTotalItemsInCart,
@@ -24,6 +25,8 @@ function NavBar() {
   const handleSignOut = () => {
     dispatch(clearCart());
     dispatch(clearUser());
+    dispatch(clearOrders());
+    history.replace('/');
   };
 
   const handleCart = () => {
