@@ -35,6 +35,7 @@ function App() {
           <SignIn />
         </Route>
         <Route path="/orders">
+          <NavBar />
           <Orders />
         </Route>
         <Route exact={true} path="/cart">

@@ -11,6 +11,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import CartProduct from './CartProduct';
+import { newOrder } from '../reducers/orderReducer';
 import {
   confirmPayment,
   createPaymentIntent,
@@ -69,6 +70,7 @@ function Payment() {
       if (data === 'success') {
         dispatch(deleteCartItems());
         setProcessing(false);
+        dispatch(newOrder(cart, paymentIntentId, getCartTotal(cart)));
         history.replace('/orders');
       }
     }
