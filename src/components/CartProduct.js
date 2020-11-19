@@ -5,6 +5,7 @@ import {
   updateProductQuantity,
 } from '../reducers/cartReducer';
 import '../css/cartProduct.css';
+import CurrencyFormat from 'react-currency-format';
 
 function CartProduct({ image, title, price, id, rating = 5, quantity }) {
   const dispatch = useDispatch();
@@ -27,9 +28,18 @@ function CartProduct({ image, title, price, id, rating = 5, quantity }) {
       <img src={image} alt=""></img>
       <div className="cartProduct__info">
         <p className="cartProduct__title">{title}</p>
-        <p>
-          ₹ <strong>{price}</strong>
-        </p>
+        <CurrencyFormat
+          thousandSpacing={'2s'}
+          decimalScale={2}
+          value={price}
+          displayType={'text'}
+          thousandSeparator={true}
+          renderText={(value) => (
+            <p>
+              ₹ <strong>{value}</strong>
+            </p>
+          )}
+        ></CurrencyFormat>
         <div className="cartProduct__rating">
           {Array(rating)
             .fill()
@@ -38,11 +48,17 @@ function CartProduct({ image, title, price, id, rating = 5, quantity }) {
             ))}
         </div>
         <div className="cartProduct__quantity">
-          <button disabled={quantity > 9} onClick={handleIncrement}>
+          <button
+            disabled={price > 50000 || quantity > 9}
+            onClick={handleIncrement}
+          >
             +
           </button>
           <span>{quantity}</span>
-          <button disabled={quantity < 2} onClick={handleDecrement}>
+          <button
+            disabled={price > 50000 || quantity < 2}
+            onClick={handleDecrement}
+          >
             -
           </button>
         </div>
