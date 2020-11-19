@@ -11,7 +11,7 @@ import NotFound from './components/NotFound';
 import Payment from './components/Payment';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import Order from './components/Order';
+import Orders from './components/Orders';
 
 const promise = loadStripe(
   'pk_test_51HhUbGDRaW3L2zxro7dCQpW3o6FKPZokTqs58kzDLoIpRuLtPmCGK126aNWHjOu102rPhvVEzOR0R2B4VDBs9u1D00lkMClOgU'
@@ -35,7 +35,7 @@ function App() {
           <SignIn />
         </Route>
         <Route path="/orders">
-          <Order />
+          <Orders />
         </Route>
         <Route exact={true} path="/cart">
           <NavBar />
