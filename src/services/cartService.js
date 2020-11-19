@@ -35,6 +35,16 @@ export const addToCart = async (id) => {
   }
 };
 
+export const emptyCart = async () => {
+  try {
+    token = getToken();
+    const { data } = await axios.delete(baseUrl, {
+      headers: { 'x-access-token': token },
+    });
+    return data;
+  } catch (error) {}
+};
+
 export const removeFromCart = async (id) => {
   try {
     token = getToken();

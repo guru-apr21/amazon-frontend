@@ -1,65 +1,78 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Payment.css';
 import { useSelector, useDispatch } from 'react-redux';
-import CartProduct from './CartProduct';
-import { getCartTotal, getTotalItemsInCart } from '../reducers/cartReducer';
+import PaymentProduct from './PaymentProduct';
+import {
+  clearCart,
+  getCartTotal,
+  getTotalItemsInCart,
+  setCart,
+} from '../reducers/cartReducer';
 import { Link, useHistory } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { setCart } from '../reducers/cartReducer';
 import CurrencyFormat from 'react-currency-format';
-import axios from 'axios';
+import {
+  confirmPayment,
+  createPaymentIntent,
+} from '../services/paymentService';
 
 function Payment() {
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
+
+  const [processing, setProcessing] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [paymentIntentId, setPaymentIntentId] = useState('');
+
   const dispatch = useDispatch();
   const history = useHistory();
 
   const stripe = useStripe();
   const elements = useElements();
 
-  const [error, setError] = useState(null);
-  const [disabled, setDisabled] = useState(true);
-  const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState('');
-  const [clientSecret, setClientSecret] = useState('');
-
   useEffect(() => {
     dispatch(setCart());
+    // eslint-disable-next-line
+  }, []);
 
-    const getClientSecret = async () => {
-      const response = await axios({
-        method: 'post',
-        url: `/payment/create?total=${getCartTotal(cart) * 100}`,
-      });
-      setClientSecret(response.data.clientSecret);
-    };
+  useEffect(() => {
+    const amount = getCartTotal(cart);
+    if (amount) {
+      createPaymentIntent(amount * 100).then(({ payment_intent_id }) =>
+        setPaymentIntentId(payment_intent_id)
+      );
+    }
+    // eslint-disable-next-line
+  }, [cart]);
 
-    getClientSecret();
-  }, [dispatch, cart]);
+  const handleChange = (e) => {
+    if (e.complete) {
+      setDisabled(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true);
+    if (!stripe || !elements) return;
+    const cardElement = elements.getElement(CardElement);
 
-    const payload = await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      })
-      .then(({ paymentIntent }) => {
-        setSucceeded(true);
-        setError(null);
-        setProcessing(false);
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log('[error]', error);
+    } else {
+      const data = await confirmPayment(paymentMethod.id, paymentIntentId);
+      if (data === 'success') {
+        dispatch(clearCart());
         history.replace('/orders');
-      });
+      }
+    }
   };
 
-  const handleChange = (e) => {
-    setDisabled(e.empty);
-    setError(e.error ? e.error.message : '');
-  };
   return (
     <div className="payment">
       <div className="payment__container">
@@ -83,7 +96,7 @@ function Payment() {
           </div>
           <div className="payment__items">
             {cart.map((product) => (
-              <CartProduct
+              <PaymentProduct
                 quantity={product.quantity}
                 key={product.productId._id}
                 id={product.productId._id}
@@ -91,7 +104,7 @@ function Payment() {
                 title={product.productId.title}
                 price={product.productId.price}
                 rating={product.productId.rating}
-              ></CartProduct>
+              ></PaymentProduct>
             ))}
           </div>
         </div>
@@ -102,19 +115,17 @@ function Payment() {
           <div className="payment__details">
             <form onSubmit={handleSubmit}>
               <CardElement onChange={handleChange}></CardElement>
-              <div className="price__container">
-                <CurrencyFormat
-                  thousandSpacing={'2s'}
-                  decimalScale={2}
-                  value={getCartTotal(cart)}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  renderText={(value) => <h3>Order Total: {value}</h3>}
-                ></CurrencyFormat>
-                <button disabled={processing || disabled || succeeded}>
-                  <span>{processing ? <p>Processing</p> : 'Buy Now'}</span>
-                </button>
-              </div>
+              <CurrencyFormat
+                thousandSpacing={'2s'}
+                decimalScale={2}
+                value={getCartTotal(cart)}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText={(value) => <p>Order Total: ₹{value}</p>}
+              ></CurrencyFormat>
+              <button type="submit" disabled={processing || disabled}>
+                <span>{processing ? 'Processing' : 'Buy Now'}</span>
+              </button>
             </form>
           </div>
         </div>
