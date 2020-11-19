@@ -1,9 +1,9 @@
 import {
   addToCart,
+  emptyCart,
   getCartItems,
   removeFromCart,
   updateQuantity,
-  emptyCart,
 } from '../services/cartService';
 
 const initialState = [];
@@ -12,6 +12,8 @@ const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_CART':
       return action.payload;
+    case 'CLEAR_CART':
+      return [];
     case 'ADD_TO_CART':
       return action.payload;
     case 'REMOVE_FROM_CART':
@@ -29,6 +31,12 @@ export const setCart = () => {
 };
 
 export const clearCart = () => {
+  return {
+    type: 'CLEAR_CART',
+  };
+};
+
+export const deleteCartItems = () => {
   return async (dispatch) => {
     const cart = await emptyCart();
     dispatch({ type: 'SET_CART', payload: cart });

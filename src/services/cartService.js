@@ -42,7 +42,9 @@ export const emptyCart = async () => {
       headers: { 'x-access-token': token },
     });
     return data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const removeFromCart = async (id) => {

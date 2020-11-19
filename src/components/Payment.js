@@ -3,7 +3,7 @@ import '../css/Payment.css';
 import { useSelector, useDispatch } from 'react-redux';
 import PaymentProduct from './PaymentProduct';
 import {
-  clearCart,
+  deleteCartItems,
   getCartTotal,
   getTotalItemsInCart,
   setCart,
@@ -67,7 +67,7 @@ function Payment() {
     } else {
       const data = await confirmPayment(paymentMethod.id, paymentIntentId);
       if (data === 'success') {
-        dispatch(clearCart());
+        dispatch(deleteCartItems());
         history.replace('/orders');
       }
     }
