@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Product.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   addProductToCart,
   updateProductQuantity,
@@ -8,6 +9,7 @@ import {
 
 function Product({ id, title, image, price, rating = 0 }) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // Find whether the product to be added is in the cart or not
   // if yes returns the product details
@@ -15,12 +17,18 @@ function Product({ id, title, image, price, rating = 0 }) {
     state.cart.find((item) => item.productId._id === id)
   );
 
+  const user = useSelector((state) => state.user);
+
   // If product to be added is in the cart updates the quantity of the
   // product by dispatching appropriate actions
   const handleAddToCart = async () => {
-    !product
-      ? dispatch(addProductToCart(id))
-      : dispatch(updateProductQuantity(id, product.quantity + 1));
+    if (user) {
+      !product
+        ? dispatch(addProductToCart(id))
+        : dispatch(updateProductQuantity(id, product.quantity + 1));
+    } else {
+      history.push('/login');
+    }
   };
 
   return (
