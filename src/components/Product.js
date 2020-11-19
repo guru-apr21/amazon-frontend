@@ -48,7 +48,9 @@ function Product({ id, title, image, price, rating = 0 }) {
       </div>
       <img src={image} alt="" />
       <button
-        disabled={product && product.quantity > 9}
+        disabled={
+          product && (product.productId.price > 50000 || product.quantity > 9)
+        }
         onClick={handleAddToCart}
       >
         Add to Cart
