@@ -1,17 +1,27 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setOrders } from '../reducers/orderReducer';
+import Order from './Order';
 
 function Orders() {
+  const user = useSelector((state) => state.user);
+  const orders = useSelector((state) => state.orders);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setOrders());
-  }, [dispatch]);
+    if (user) {
+      dispatch(setOrders());
+    }
+  }, [user, dispatch]);
 
   return (
-    <div>
-      <h1>Orders</h1>
+    <div className="orders">
+      <h1>Your Orders</h1>
+      <div className="orders__order">
+        {orders?.map((order) => (
+          <Order order={order}></Order>
+        ))}
+      </div>
     </div>
   );
 }
