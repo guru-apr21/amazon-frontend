@@ -3,7 +3,7 @@ import NavBar from './components/NavBar';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import './css/App.css';
 import SignIn from './components/SignIn';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './reducers/userReducer';
 import Home from './components/Home';
 import Cart from './components/Cart';
@@ -12,7 +12,7 @@ import Payment from './components/Payment';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Orders from './components/Orders';
-import SignUp from "./components/SignUp"
+import SignUp from './components/SignUp';
 
 const promise = loadStripe(
   'pk_test_51HhUbGDRaW3L2zxro7dCQpW3o6FKPZokTqs58kzDLoIpRuLtPmCGK126aNWHjOu102rPhvVEzOR0R2B4VDBs9u1D00lkMClOgU'
@@ -26,30 +26,48 @@ function App() {
     if (user) {
       dispatch(setUser(user));
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
+
+  const user = useSelector((state) => state.user);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/login">
-          <SignIn />
+          {user ? <Redirect to="/"></Redirect> : <SignIn />}
         </Route>
-        <Route path="/signUp">
-          <SignUp />
+        <Route path="/signup">
+          {user ? <Redirect to="/"></Redirect> : <SignUp />}
         </Route>
         <Route path="/orders">
-          <NavBar />
-          <Orders />
+          {console.log(user)}
+          {!user ? (
+            <Redirect to="/login"></Redirect>
+          ) : (
+            <>
+              <NavBar />
+              <Orders />
+            </>
+          )}
         </Route>
         <Route exact={true} path="/cart">
-          <NavBar />
-          <Cart />
+          {!user ? (
+            <Redirect to="/login"></Redirect>
+          ) : (
+            <>
+              <NavBar />
+              <Cart />
+            </>
+          )}
         </Route>
         <Route path="/payment">
-          <Elements stripe={promise}>
-            <Payment />
-          </Elements>
+          {!user ? (
+            <Redirect to="/login"></Redirect>
+          ) : (
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
+          )}
         </Route>
         <Route exact={true} path="/">
           <NavBar />
