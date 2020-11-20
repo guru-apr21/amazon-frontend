@@ -1,12 +1,11 @@
 import axios from 'axios';
 const baseUrl = 'http://localhost:3001/api/products';
 
-let token;
 const getToken = () => {
   let user = window.localStorage.getItem('loggedInUser');
   if (user) {
     user = JSON.parse(user);
-    return user.accessToken;
+    return { token: user.accessToken, id: user._id };
   }
 };
 
@@ -15,10 +14,10 @@ export const getAllProducts = async () => {
   return data;
 };
 
-export const getUserProducts = async (userId) => {
+export const getUserProducts = async () => {
   try {
-    token = getToken();
-    const { data } = await axios.get(`${baseUrl}/${userId}`, {
+    const { token, id } = getToken();
+    const { data } = await axios.get(`${baseUrl}/${id}`, {
       headers: { 'x-access-token': token },
     });
     return data;
