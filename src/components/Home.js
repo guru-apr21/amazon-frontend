@@ -7,7 +7,7 @@ import { setCart } from '../reducers/cartReducer';
 
 function Home() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.all);
 
   useEffect(() => {
     dispatch(setProducts());
