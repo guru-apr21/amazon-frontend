@@ -20,7 +20,7 @@ function SignIn() {
       setPassword('');
       const { user } = await signin({ email, password });
       dispatch(setUser(user));
-      history.push('/');
+      history.replace('/');
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +58,7 @@ function SignIn() {
         </form>
       </div>
       <p>New to Amazon?</p>
-      <Link to="/signUp">
+      <Link to="/signup">
         <button>Create your Amazon account</button>
       </Link>
     </div>
