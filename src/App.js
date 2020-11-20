@@ -13,6 +13,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Orders from './components/Orders';
 import SignUp from './components/SignUp';
+import ProductUpload from './components/ProductUpload';
 
 const promise = loadStripe(
   'pk_test_51HhUbGDRaW3L2zxro7dCQpW3o6FKPZokTqs58kzDLoIpRuLtPmCGK126aNWHjOu102rPhvVEzOR0R2B4VDBs9u1D00lkMClOgU'
@@ -40,7 +41,6 @@ function App() {
           {user ? <Redirect to="/"></Redirect> : <SignUp />}
         </Route>
         <Route path="/orders">
-          {console.log(user)}
           {!user ? (
             <Redirect to="/login"></Redirect>
           ) : (
@@ -68,6 +68,10 @@ function App() {
               <Payment />
             </Elements>
           )}
+        </Route>
+        <Route path="/products">
+          <NavBar />
+          <ProductUpload />
         </Route>
         <Route exact={true} path="/">
           <NavBar />
