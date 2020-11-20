@@ -29,12 +29,6 @@ function NavBar() {
     history.replace('/');
   };
 
-  const handleCart = () => {
-    if (!user) {
-      history.push('/login');
-    }
-  };
-
   return (
     <nav className="navbar">
       <Link to="/">
@@ -74,22 +68,18 @@ function NavBar() {
             <span className="navbar__optionLine2">Orders</span>
           </div>
         </Link>
-        <div onClick={handleCart}>
-          <Link to="/cart" className="navbar__link">
-            <div style={{ flexDirection: 'row' }} className="navbar__option">
-              <ShoppingBasketIcon className="navbar__basketIcon"></ShoppingBasketIcon>
-              <span
-                style={{ marginTop: '15px' }}
-                className="navbar__optionLine2"
-              >
-                Cart
-              </span>
-              <span className="navbar__cartCount">
-                {cart.length > 0 ? getTotalItemsInCart(cart) : 0}
-              </span>
-            </div>
-          </Link>
-        </div>
+
+        <Link to="/cart" className="navbar__link">
+          <div style={{ flexDirection: 'row' }} className="navbar__option">
+            <ShoppingBasketIcon className="navbar__basketIcon"></ShoppingBasketIcon>
+            <span style={{ marginTop: '15px' }} className="navbar__optionLine2">
+              Cart
+            </span>
+            <span className="navbar__cartCount">
+              {cart.length > 0 ? getTotalItemsInCart(cart) : 0}
+            </span>
+          </div>
+        </Link>
       </div>
     </nav>
   );
