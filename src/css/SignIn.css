@@ -16,7 +16,7 @@
   border: 1px solid #a6a6a6;
   border-radius: 5px;
   width: 350px;
-  height: 300px;
+  height: max-content;
   padding: 26px;
 }
 

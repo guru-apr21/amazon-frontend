@@ -57,6 +57,10 @@ function SignIn() {
           <button type="submit">Sign In</button>
         </form>
       </div>
+      <p>New to Amazon?</p>
+      <Link to="/signUp">
+        <button>Create your Amazon account</button>
+      </Link>
     </div>
   );
 }
