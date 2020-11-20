@@ -70,8 +70,14 @@ function App() {
           )}
         </Route>
         <Route path="/products">
-          <NavBar />
-          <ProductUpload />
+          {user?.role === 'buyer' ? (
+            <Redirect to="/"></Redirect>
+          ) : (
+            <>
+              <NavBar />
+              <ProductUpload />
+            </>
+          )}
         </Route>
         <Route exact={true} path="/">
           <NavBar />
