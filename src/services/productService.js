@@ -17,7 +17,7 @@ export const getAllProducts = async () => {
 export const getUserProducts = async () => {
   try {
     const { token, id } = getToken();
-    const { data } = await axios.get(`${baseUrl}/${id}`, {
+    const { data } = await axios.get(`${baseUrl}/user/${id}`, {
       headers: { 'x-access-token': token },
     });
     return data;
