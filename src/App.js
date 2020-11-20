@@ -13,7 +13,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Orders from './components/Orders';
 import SignUp from './components/SignUp';
-import ProductUpload from './components/ProductUpload';
+import UserProducts from './components/UserProducts';
 
 const promise = loadStripe(
   'pk_test_51HhUbGDRaW3L2zxro7dCQpW3o6FKPZokTqs58kzDLoIpRuLtPmCGK126aNWHjOu102rPhvVEzOR0R2B4VDBs9u1D00lkMClOgU'
@@ -75,7 +75,7 @@ function App() {
           ) : (
             <>
               <NavBar />
-              <ProductUpload />
+              <UserProducts />
             </>
           )}
         </Route>
