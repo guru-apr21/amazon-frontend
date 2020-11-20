@@ -1,11 +1,14 @@
 import { getAllProducts } from '../services/productService';
 
-const initialState = [];
+const initialState = {
+  all: [],
+  userProducts: [],
+};
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_PRODUCTS':
-      return [...action.payload];
+      return { ...state, all: action.payload };
     default:
       return state;
   }
