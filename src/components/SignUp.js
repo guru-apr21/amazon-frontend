@@ -1,8 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signup } from '../services/signInService';
+import { setUser } from '../reducers/userReducer';
 
 function SignUp() {
-  const handleSubmit = () => {};
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const { user } = await signup({ email, password, firstName, lastName });
+      dispatch(setUser(user));
+      setEmail('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
+      history.replace('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="signin">
@@ -17,15 +40,45 @@ function SignUp() {
         <h1>Sign Up</h1>
         <form className="sigin__form" onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
-          <input id="firstName" className="sigin__input" type="text" />
+          <input
+            id="firstName"
+            className="sigin__input"
+            type="text"
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
+          />
           <label htmlFor="lastName">Last Name</label>
-          <input id="lastName" className="sigin__input" type="text" />
+          <input
+            id="lastName"
+            className="sigin__input"
+            type="text"
+            onChange={(e) => setLastName(e.target.value)}
+            value={lastName}
+          />
           <label htmlFor="email">email</label>
-          <input id="email" className="sigin__input" type="text" />
+          <input
+            id="email"
+            className="sigin__input"
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
           <label htmlFor="password">password</label>
-          <input id="password" className="sigin__input" type="text" />
+          <input
+            id="password"
+            className="sigin__input"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
           <button type="submit">Sign Up</button>
         </form>
+        <p style={{ marginTop: '10px' }}>
+          Already have an account?{' '}
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            Sign in
+          </Link>
+        </p>
       </div>
     </div>
   );
