@@ -1,3 +1,5 @@
+import { signup } from '../services/signInService';
+
 const initialState = null;
 
 const userReducer = (state = initialState, action) => {
@@ -16,6 +18,14 @@ export const setUser = (user) => {
   return {
     type: 'SET_USER',
     payload: user,
+  };
+};
+
+export const signUpUser = (body) => {
+  return async (dispatch) => {
+    const { user } = await signup(body);
+    window.localStorage.setItem('loggedInUser', JSON.stringify(user));
+    dispatch({ type: 'SET_USER', payload: user });
   };
 };
 
