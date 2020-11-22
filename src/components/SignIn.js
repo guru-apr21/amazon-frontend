@@ -4,7 +4,10 @@ import { signin } from '../services/signInService';
 import { Link, useHistory } from 'react-router-dom';
 import { setUser } from '../reducers/userReducer';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +25,7 @@ function SignIn() {
       dispatch(setUser(user));
       history.replace('/');
     } catch (error) {
-      console.log(error);
+      toast.error('Invalid Credentials');
     }
   };
 
