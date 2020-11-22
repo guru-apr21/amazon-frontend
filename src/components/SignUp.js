@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signup } from '../services/signInService';
-import { setUser } from '../reducers/userReducer';
+import { signUpUser } from '../reducers/userReducer';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -15,8 +14,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const { user } = await signup({ email, password, firstName, lastName });
-      dispatch(setUser(user));
+      dispatch(signUpUser({ firstName, lastName, password, email }));
       setEmail('');
       setPassword('');
       setFirstName('');
