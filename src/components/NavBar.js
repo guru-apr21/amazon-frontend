@@ -1,33 +1,20 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../css/NavBar.css';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearUser } from '../reducers/userReducer';
-import { clearOrders } from '../reducers/orderReducer';
-import {
-  clearCart,
-  getTotalItemsInCart,
-  setCart,
-} from '../reducers/cartReducer';
+
+import { getTotalItemsInCart, setCart } from '../reducers/cartReducer';
 
 function NavBar() {
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(setCart());
   }, [dispatch]);
-
-  const handleSignOut = () => {
-    dispatch(clearCart());
-    dispatch(clearUser());
-    dispatch(clearOrders());
-    history.replace('/');
-  };
 
   return (
     <nav className="navbar">
@@ -51,16 +38,14 @@ function NavBar() {
             </div>
           </Link>
         ) : (
-          <div className="navbar__option">
-            <span className="navbar__optionLine1">Hello, {user.firstName}</span>
-            <span
-              onClick={handleSignOut}
-              style={{ cursor: 'pointer' }}
-              className="navbar__optionLine2"
-            >
-              Sign Out
-            </span>
-          </div>
+          <Link to="/user" className="navbar__link">
+            <div className="navbar__option">
+              <span className="navbar__optionLine1">
+                Hello, {user.firstName}
+              </span>
+              <span className="navbar__optionLine2">Account Details</span>
+            </div>
+          </Link>
         )}
         <Link to="/orders" className="navbar__link">
           <div className="navbar__option">
