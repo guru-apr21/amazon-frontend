@@ -70,7 +70,7 @@ function App() {
           )}
         </Route>
         <Route path="/products">
-          {user?.role === 'buyer' ? (
+          {!user || user?.role === 'buyer' ? (
             <Redirect to="/"></Redirect>
           ) : (
             <>

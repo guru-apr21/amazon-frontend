@@ -25,3 +25,11 @@ export const getUserProducts = async () => {
     console.log(error);
   }
 };
+
+export const createNewProduct = async (body) => {
+  const { token } = getToken();
+  const data = await axios.post(`${baseUrl}`, body, {
+    headers: { 'x-access-token': token },
+  });
+  return data;
+};
