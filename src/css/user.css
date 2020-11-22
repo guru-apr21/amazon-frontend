@@ -1,0 +1,52 @@
+.user {
+  width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.user h1 {
+  font-weight: 500;
+}
+
+.user__details {
+  width: 600px;
+  height: max-content;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.user__lists {
+  list-style: none;
+}
+
+.user__list {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid lightgray;
+  padding: 14px 18px !important;
+}
+
+.user__optionLine1 {
+  font-weight: 700 !important;
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.user__optionLine2 {
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.user button {
+  background: #f0c14b;
+  border-color: #a88734 #9c7e31 #846a29;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+  height: 30px;
+  width: max-content;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 8px;
+}

@@ -14,6 +14,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import Orders from './components/Orders';
 import SignUp from './components/SignUp';
 import UserProducts from './components/UserProducts';
+import User from './components/User';
 
 const promise = loadStripe(
   'pk_test_51HhUbGDRaW3L2zxro7dCQpW3o6FKPZokTqs58kzDLoIpRuLtPmCGK126aNWHjOu102rPhvVEzOR0R2B4VDBs9u1D00lkMClOgU'
@@ -78,6 +79,10 @@ function App() {
               <UserProducts />
             </>
           )}
+        </Route>
+        <Route path="/user">
+          <NavBar />
+          <User />
         </Route>
         <Route exact={true} path="/">
           <NavBar />
