@@ -23,9 +23,10 @@ function SignIn() {
       setPassword('');
       const { user } = await signin({ email, password });
       dispatch(setUser(user));
+      toast.success('Signed In Successfully!');
       history.replace('/');
     } catch (error) {
-      toast.error('Invalid Credentials');
+      toast.error('Invalid Credentials!');
     }
   };
 
