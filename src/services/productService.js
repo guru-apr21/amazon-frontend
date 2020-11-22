@@ -28,7 +28,7 @@ export const getUserProducts = async () => {
 
 export const createNewProduct = async (body) => {
   const { token } = getToken();
-  const data = await axios.post(`${baseUrl}`, body, {
+  const { data } = await axios.post(`${baseUrl}`, body, {
     headers: { 'x-access-token': token },
   });
   return data;
