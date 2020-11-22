@@ -1,4 +1,4 @@
-import { signup } from '../services/signInService';
+import { signup, changeRole } from '../services/signInService';
 
 const initialState = null;
 
@@ -8,6 +8,8 @@ const userReducer = (state = initialState, action) => {
       return { ...action.payload };
     case 'CLEAR_USER':
       return null;
+    case 'CHANGE_ROLE':
+      return { ...action.payload };
     default:
       return state;
   }
@@ -33,6 +35,14 @@ export const clearUser = () => {
   window.localStorage.clear();
   return {
     type: 'CLEAR_USER',
+  };
+};
+
+export const createSeller = () => {
+  return async (dispatch) => {
+    const user = await changeRole();
+    window.localStorage.setItem('loggedInUser', JSON.stringify(user));
+    dispatch({ type: 'CHANGE_ROLE', payload: user });
   };
 };
 
