@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUpUser } from '../reducers/userReducer';
 
 function SignUp() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -13,19 +14,24 @@ function SignUp() {
     lastName: '',
   });
 
+  useEffect(() => {
+    if (user) history.replace('/');
+    // eslint-disable-next-line
+  }, [user]);
+
   const handleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
   };
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      dispatch(signUpUser(values));
-      setValues({});
-      history.replace('/');
-    } catch (err) {
-      console.log(err);
-    }
+    e.preventDefault();
+    dispatch(signUpUser(values));
+    setValues({
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+    });
   };
 
   return (
