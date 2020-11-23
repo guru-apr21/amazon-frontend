@@ -25,9 +25,13 @@ export const setUser = (user) => {
 
 export const signUpUser = (body) => {
   return async (dispatch) => {
-    const { user } = await signup(body);
-    window.localStorage.setItem('loggedInUser', JSON.stringify(user));
-    dispatch({ type: 'SET_USER', payload: user });
+    try {
+      const { user } = await signup(body);
+      window.localStorage.setItem('loggedInUser', JSON.stringify(user));
+      dispatch({ type: 'SET_USER', payload: user });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
