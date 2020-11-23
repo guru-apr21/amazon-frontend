@@ -26,6 +26,12 @@ function UserProducts() {
     data.append('brand', brand);
     data.append('categoryId', categoryId);
 
+    setTitle('');
+    setPrice('');
+    setBrand('');
+    setCategoryId('');
+    setImages(null);
+
     dispatch(createProduct(data));
   };
 
@@ -74,7 +80,7 @@ function UserProducts() {
           value={categoryId}
         >
           <option value="">Select</option>
-          <option value="5fb2a5a2fa5421091c93e186">Laptops</option>
+          <option value="5fbaa283a8b8242280ae955a">Laptops</option>
         </select>
         <button type="submit">Create Product</button>
       </form>
