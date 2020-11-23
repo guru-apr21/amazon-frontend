@@ -1,5 +1,5 @@
 import { getAllCategories } from '../services/categoryService';
-const categoryReducer = (action, state = []) => {
+const categoryReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_CATEGORY':
       return action.payload;
