@@ -7,6 +7,7 @@ import {
 import '../css/cartProduct.css';
 import CurrencyFormat from 'react-currency-format';
 import Button from './common/Button';
+import { removeProduct } from '../reducers/productReducer';
 function CartProduct({
   image,
   title,
@@ -15,7 +16,7 @@ function CartProduct({
   rating = 5,
   quantity,
   hideButtons,
-  showDelete = true,
+  showDelete = false,
 }) {
   const dispatch = useDispatch();
   const handleRemove = () => {
@@ -32,7 +33,9 @@ function CartProduct({
     dispatch(updateProductQuantity(id, updatedQuantity));
   };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch(removeProduct(id));
+  };
 
   return (
     <div className="cartProduct">
