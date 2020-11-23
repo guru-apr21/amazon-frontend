@@ -1,5 +1,4 @@
 import axios from 'axios';
-import getToken from '../utils/token';
 const baseUrl = 'http://localhost:3001/api/category';
 
 export const getAllCategories = async () => {
