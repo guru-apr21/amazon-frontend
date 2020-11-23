@@ -4,21 +4,24 @@ import { useDispatch } from 'react-redux';
 import { signUpUser } from '../reducers/userReducer';
 
 function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+  });
+
+  const handleChange = ({ target: { name, value } }) => {
+    setValues({ ...values, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      dispatch(signUpUser({ firstName, lastName, password, email }));
-      setEmail('');
-      setPassword('');
-      setFirstName('');
-      setLastName('');
+      dispatch(signUpUser(values));
+      setValues({});
       history.replace('/');
     } catch (err) {
       console.log(err);
@@ -39,35 +42,43 @@ function SignUp() {
         <form className="sigin__form" onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
           <input
+            name="firstName"
             id="firstName"
             className="sigin__input"
             type="text"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
+            onChange={handleChange}
+            value={values['firstName']}
+            required
           />
           <label htmlFor="lastName">Last Name</label>
           <input
+            name="lastName"
             id="lastName"
             className="sigin__input"
             type="text"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
+            onChange={handleChange}
+            value={values['lastName']}
+            required
           />
           <label htmlFor="email">email</label>
           <input
+            name="email"
             id="email"
             className="sigin__input"
-            type="text"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            type="email"
+            onChange={handleChange}
+            value={values['email']}
+            required
           />
           <label htmlFor="password">password</label>
           <input
+            name="password"
             id="password"
             className="sigin__input"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            onChange={handleChange}
+            value={values['password']}
+            required
           />
           <button type="submit">Sign Up</button>
         </form>
