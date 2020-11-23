@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserProducts, createProduct } from '../reducers/productReducer';
 import CartProduct from './CartProduct';
 import '../css/UserProducts.css';
+import { setCategory } from '../reducers/categoryReducer';
 
 function UserProducts() {
   const dispatch = useDispatch();
@@ -12,8 +13,13 @@ function UserProducts() {
   const [categoryId, setCategoryId] = useState('');
   const [images, setImages] = useState(null);
 
-  useEffect(() => dispatch(setUserProducts()), [dispatch]);
+  useEffect(() => {
+    dispatch(setUserProducts());
+    dispatch(setCategory());
+  }, [dispatch]);
+
   const products = useSelector((state) => state.products.userProducts);
+  const category = useSelector((state) => state.category);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,7 +86,11 @@ function UserProducts() {
           value={categoryId}
         >
           <option value="">Select</option>
-          <option value="5fbaa283a8b8242280ae955a">Laptops</option>
+          {category?.map((item) => (
+            <option key={item._id} value={item._id}>
+              {item.title}
+            </option>
+          ))}
         </select>
         <button type="submit">Create Product</button>
       </form>
