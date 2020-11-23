@@ -2,6 +2,7 @@ import {
   getAllProducts,
   getUserProducts,
   createNewProduct,
+  deleteProduct,
 } from '../services/productService';
 
 const initialState = {
@@ -20,6 +21,11 @@ const productReducer = (state = initialState, action) => {
         ...state,
         userProducts: [...state.userProducts, action.payload],
       };
+    case 'REMOVE_PRODUCT':
+      const userProducts = state.userProducts.filter(
+        (product) => product._id !== action.payload
+      );
+      return { ...state, userProducts };
     default:
       return state;
   }
@@ -43,6 +49,13 @@ export const createProduct = (body) => {
   return async (dispatch) => {
     const product = await createNewProduct(body);
     dispatch({ type: 'CREATE_NEW_PRODUCT', payload: product });
+  };
+};
+
+export const removeProduct = (id) => {
+  return async (dispatch) => {
+    await deleteProduct(id);
+    dispatch({ type: 'REMOVE_PRODUCT', payload: id });
   };
 };
 

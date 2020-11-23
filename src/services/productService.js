@@ -33,3 +33,14 @@ export const createNewProduct = async (body) => {
   });
   return data;
 };
+
+export const deleteProduct = async (id) => {
+  try {
+    const { token } = getToken();
+    await axios.delete(`${baseUrl}/${id}`, {
+      headers: { 'x-access-token': token },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
