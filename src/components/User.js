@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearUser, createSeller, setUser } from '../reducers/userReducer';
+import { clearUser, createSeller } from '../reducers/userReducer';
 import { clearOrders } from '../reducers/orderReducer';
 import { clearCart } from '../reducers/cartReducer';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import '../css/user.css';
 
 function User() {
@@ -57,6 +57,11 @@ function User() {
           <button onClick={handleSignOut}>Sign Out</button>
           {user.role !== 'seller' && (
             <button onClick={handleSeller}>Start Selling</button>
+          )}
+          {user.role !== 'buyer' && (
+            <Link to="/products">
+              <button>Your Products</button>
+            </Link>
           )}
         </>
       )}
