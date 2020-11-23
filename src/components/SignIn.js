@@ -9,19 +9,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
 function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [values, setValues] = useState({ email: '', password: '' });
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
+  const handleChange = ({ target: { name, value } }) => {
+    setValues({ ...values, [name]: value });
+  };
+
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
-      setEmail('');
-      setPassword('');
-      const { user } = await signin({ email, password });
+      setValues({ email: '', password: '' });
+      const { user } = await signin(values);
       dispatch(setUser(user));
       toast.success('Signed In Successfully!');
       history.replace('/');
@@ -44,19 +44,21 @@ function SignIn() {
         <form className="sigin__form" onSubmit={handleSignIn}>
           <label htmlFor="email">Email</label>
           <input
+            name="email"
             id="email"
             className="sigin__input"
             type="email"
-            onChange={handleEmail}
-            value={email}
+            onChange={handleChange}
+            value={values['email']}
           ></input>
           <label htmlFor="password">Password</label>
           <input
+            name="password"
             id="password"
             className="sigin__input"
             type="password"
-            value={password}
-            onChange={handlePassword}
+            value={values['password']}
+            onChange={handleChange}
           ></input>
           <button type="submit">Sign In</button>
         </form>
