@@ -71,18 +71,24 @@ function App() {
           )}
         </Route>
         <Route path="/products">
-          {!user || user?.role === 'buyer' ? (
-            <Redirect to="/"></Redirect>
-          ) : (
+          {user?.role === 'seller' || 'superAdmin' ? (
             <>
               <NavBar />
               <UserProducts />
             </>
+          ) : (
+            <Redirect to="/"></Redirect>
           )}
         </Route>
         <Route path="/user">
-          <NavBar />
-          <User />
+          {user ? (
+            <>
+              <NavBar />
+              <User />
+            </>
+          ) : (
+            <Redirect to="/"></Redirect>
+          )}
         </Route>
         <Route exact={true} path="/">
           <NavBar />
