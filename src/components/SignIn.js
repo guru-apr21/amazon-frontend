@@ -50,6 +50,7 @@ function SignIn() {
             type="email"
             onChange={handleChange}
             value={values['email']}
+            required
           ></input>
           <label htmlFor="password">Password</label>
           <input
@@ -59,6 +60,7 @@ function SignIn() {
             type="password"
             value={values['password']}
             onChange={handleChange}
+            required
           ></input>
           <button type="submit">Sign In</button>
         </form>
