@@ -88,6 +88,8 @@ function UserProducts() {
         <h1>Your Products</h1>
         {products?.map((product) => (
           <CartProduct
+            id={product._id}
+            showDelete={true}
             hideButtons={true}
             key={product._id}
             title={product.title}
