@@ -1,14 +1,6 @@
 import axios from 'axios';
+import getToken from '../utils/token';
 const baseUrl = 'http://localhost:3001/api/users';
-
-const getToken = () => {
-  let user = window.localStorage.getItem('loggedInUser');
-  if (user) {
-    user = JSON.parse(user);
-    console.log(user.accessToken);
-    return user.accessToken;
-  }
-};
 
 export const signin = async (body) => {
   const { data } = await axios.post(`${baseUrl}/signin`, body);

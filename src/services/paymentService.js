@@ -1,14 +1,8 @@
 import axios from 'axios';
+import getToken from '../utils/token';
 const baseUrl = 'http://localhost:3001/api/stripe';
 
 let token;
-const getToken = () => {
-  let user = window.localStorage.getItem('loggedInUser');
-  if (user) {
-    user = JSON.parse(user);
-    return user.accessToken;
-  }
-};
 
 export const createPaymentIntent = async (amount) => {
   try {
