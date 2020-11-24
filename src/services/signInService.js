@@ -24,3 +24,9 @@ export const changeRole = async () => {
     console.log(err);
   }
 };
+
+export const validateEmailId = async (email) => {
+  const { data } = await axios.post(`${baseUrl}/email`, { email });
+  console.log(data);
+  return data;
+};
