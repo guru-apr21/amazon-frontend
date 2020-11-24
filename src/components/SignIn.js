@@ -10,6 +10,7 @@ import Logo from './common/Logo';
 import Input from './common/Input';
 import { useForm } from 'react-hook-form';
 
+toast.configure();
 function SignIn() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -26,8 +27,8 @@ function SignIn() {
       const { user } = await signin(data);
       dispatch(setUser(user));
       history.replace('/');
-    } catch (error) {
-      toast.error('Invalid Credentials!');
+    } catch ({ response }) {
+      toast.error(response.data.message);
     }
   };
 
