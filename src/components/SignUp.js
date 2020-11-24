@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './common/ErrorMessage';
 import { validateEmailId } from '../services/signInService';
 import { signUpUser } from '../reducers/userReducer';
 
