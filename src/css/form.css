@@ -20,7 +20,7 @@
   line-height: 1.2;
 }
 
-.form__label {
+.form label {
   display: block;
   padding-left: 2px;
   padding-bottom: 2px;
@@ -28,7 +28,8 @@
   margin-top: 10px;
 }
 
-.form__input {
+.form input,
+.form select {
   width: 100%;
   display: block;
   padding: 3px 7px;
@@ -38,7 +39,8 @@
 
 .form button {
   background-color: #f3cb69;
-  margin: 20px 0;
+  margin-top: 15px;
+  margin-bottom: 10px;
   border-radius: 3px;
   border: 1px solid #a6a6a6;
   height: 30px;
