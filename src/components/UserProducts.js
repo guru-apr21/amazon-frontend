@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserProducts, createProduct } from '../reducers/productReducer';
 import CartProduct from './CartProduct';
 import '../css/UserProducts.css';
 import { setCategory } from '../reducers/categoryReducer';
+import Input from './common/Input';
+import { useForm } from 'react-hook-form';
 
 function UserProducts() {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [brand, setBrand] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [images, setImages] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    errors,
+    formState: { isSubmitting },
+  } = useForm();
 
   useEffect(() => {
     dispatch(setUserProducts());
@@ -21,69 +25,59 @@ function UserProducts() {
   const products = useSelector((state) => state.products.userProducts);
   const category = useSelector((state) => state.category);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    for (let x = 0; x < images.length; x++) {
-      data.append('images', images[x]);
+  const onSubmit = async (data, e) => {
+    console.log(data);
+    const body = new FormData();
+    Object.keys(data).forEach((key) => body.append(key, data[key]));
+
+    for (let x = 0; x < data.images.length; x++) {
+      body.append('images', data.images[x]);
     }
-    data.append('title', title);
-    data.append('price', price);
-    data.append('brand', brand);
-    data.append('categoryId', categoryId);
-
-    setTitle('');
-    setPrice('');
-    setBrand('');
-    setCategoryId('');
-    setImages(null);
-
-    dispatch(createProduct(data));
+    dispatch(createProduct(body));
+    e.target.reset();
   };
 
   return (
     <div className="userProducts">
       <form
-        onSubmit={handleSubmit}
-        className="userProducts__form"
-        encType="multipart/form-data"
+        onSubmit={handleSubmit(onSubmit)}
+        className="form"
+        style={{ width: '900px' }}
       >
         <h3>Create Product</h3>
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          required={true}
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+        <Input
+          label="Title"
+          name="title"
+          error={errors.title}
+          ref={register({ required: true })}
         />
-        <label htmlFor="price">Price</label>
-        <input
-          id="price"
+        <Input
           type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          name="price"
+          label="Price"
+          error={errors.price}
+          ref={register({ required: true, min: 10 })}
         />
-        <label htmlFor="image">Product Images</label>
-        <input
-          id="image"
-          name="image"
+        <Input
+          name="images"
+          label="Product Images"
           type="file"
-          onChange={(e) => setImages(e.target.files)}
-          multiple
+          ref={register({ required: true })}
+          multiple={true}
+          error={errors.images}
         />
-        <label htmlFor="brand">Brand</label>
-        <input
-          id="brand"
-          type="text"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
+        <Input
+          name="brand"
+          label="Brand"
+          error={errors.brand}
+          ref={register({ required: true })}
         />
+
         <label htmlFor="category">Choose a category:</label>
         <select
           id="category"
-          onChange={(e) => setCategoryId(e.target.value)}
-          value={categoryId}
+          name="categoryId"
+          ref={register({ required: true })}
         >
           <option value="">Select</option>
           {category?.map((item) => (
@@ -92,7 +86,9 @@ function UserProducts() {
             </option>
           ))}
         </select>
-        <button type="submit">Create Product</button>
+        <button disabled={isSubmitting} type="submit">
+          Create Product
+        </button>
       </form>
       <div className="userProducts__products">
         <h1>Your Products</h1>

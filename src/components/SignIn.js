@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../css/form.css';
 import { signin } from '../services/signInService';
 import { Link, useHistory } from 'react-router-dom';
@@ -6,24 +6,25 @@ import { setUser } from '../reducers/userReducer';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Logo from './common/Logo';
+import Input from './common/Input';
+import { useForm } from 'react-hook-form';
 
-toast.configure();
 function SignIn() {
-  const [values, setValues] = useState({ email: '', password: '' });
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleChange = ({ target: { name, value } }) => {
-    setValues({ ...values, [name]: value });
-  };
+  const {
+    register,
+    handleSubmit,
+    errors,
+    formState: { isSubmitting },
+  } = useForm();
 
-  const handleSignIn = async (e) => {
+  const onSubmit = async (data) => {
     try {
-      e.preventDefault();
-      setValues({ email: '', password: '' });
-      const { user } = await signin(values);
+      const { user } = await signin(data);
       dispatch(setUser(user));
-      toast.success('Signed In Successfully!');
       history.replace('/');
     } catch (error) {
       toast.error('Invalid Credentials!');
@@ -31,45 +32,35 @@ function SignIn() {
   };
 
   return (
-    <div className="signin">
-      <Link to="/">
-        <img
-          className="signin__image"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-          alt=""
+    <>
+      <Logo />
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <h1>Sign In</h1>
+        <Input
+          name="email"
+          label="Email"
+          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+          error={errors.email}
         />
-      </Link>
-      <div className="signin__border">
-        <h1>SignIn</h1>
-        <form className="sigin__form" onSubmit={handleSignIn}>
-          <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            id="email"
-            className="sigin__input"
-            type="email"
-            onChange={handleChange}
-            value={values['email']}
-            required
-          ></input>
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            id="password"
-            className="sigin__input"
-            type="password"
-            value={values['password']}
-            onChange={handleChange}
-            required
-          ></input>
-          <button type="submit">Sign In</button>
-        </form>
-      </div>
-      <p>New to Amazon?</p>
-      <Link to="/signup">
-        <button>Create your Amazon account</button>
-      </Link>
-    </div>
+        <Input
+          name="password"
+          type="password"
+          label="password"
+          ref={register({ required: true })}
+          error={errors.password}
+        />
+
+        <button disabled={isSubmitting} type="submit">
+          Sign In
+        </button>
+        <span>New to Amazon?</span>
+        <Link to="/signup">
+          <button style={{ backgroundColor: '#f3f4f6' }}>
+            Create your Amazon account
+          </button>
+        </Link>
+      </form>
+    </>
   );
 }
 
