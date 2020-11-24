@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
+import { validateEmailId } from '../services/signInService';
 import { signUpUser } from '../reducers/userReducer';
 
 function SignUp() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const [values, setValues] = useState({
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    errors,
+    trigger,
+    formState: { isSubmitting },
+  } = useForm();
 
-  useEffect(() => {
-    if (user) history.replace('/');
-    // eslint-disable-next-line
-  }, [user]);
-
-  const handleChange = ({ target: { name, value } }) => {
-    setValues({ ...values, [name]: value });
+  const validateEmail = async (value) => {
+    try {
+      await validateEmailId(value);
+      return true;
+    } catch (error) {
+      return false;
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(signUpUser(values));
-    setValues({
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-    });
+  const onSubmit = (data, e) => {
+    dispatch(signUpUser(data));
+    e.target.reset();
+    history.replace('/');
   };
 
   return (
@@ -45,48 +43,47 @@ function SignUp() {
       </Link>
       <div className="signin__border">
         <h1>Sign Up</h1>
-        <form className="sigin__form" onSubmit={handleSubmit}>
-          <label htmlFor="firstName">First Name</label>
+        <form className="sigin__form" onSubmit={handleSubmit(onSubmit)}>
+          <label>First Name</label>
           <input
             name="firstName"
-            id="firstName"
             className="sigin__input"
-            type="text"
-            onChange={handleChange}
-            value={values['firstName']}
-            required
+            ref={register({ required: true, minLength: 3 })}
           />
-          <label htmlFor="lastName">Last Name</label>
+          <ErrorMessage label={'First Name'} error={errors.firstName} min={3} />
+
+          <label>Last Name</label>
           <input
             name="lastName"
-            id="lastName"
             className="sigin__input"
-            type="text"
-            onChange={handleChange}
-            value={values['lastName']}
-            required
+            ref={register({ required: true, minLength: 2 })}
           />
-          <label htmlFor="email">email</label>
+          <ErrorMessage label={'Last Name'} error={errors.lastName} min={2} />
+
+          <label>Email</label>
           <input
             name="email"
-            id="email"
             className="sigin__input"
-            type="email"
-            onChange={handleChange}
-            value={values['email']}
-            required
+            ref={register({
+              required: true,
+              pattern: /^\S+@\S+$/i,
+              validate: validateEmail,
+            })}
+            onBlur={() => trigger('email')}
           />
-          <label htmlFor="password">password</label>
+          <ErrorMessage label={'Email'} error={errors.email} />
+          <label>Password</label>
           <input
             name="password"
-            id="password"
             className="sigin__input"
             type="password"
-            onChange={handleChange}
-            value={values['password']}
-            required
+            ref={register({ required: true, minLength: 8 })}
           />
-          <button type="submit">Sign Up</button>
+          <ErrorMessage label={'Password'} error={errors.password} min={8} />
+
+          <button disabled={isSubmitting} type="submit">
+            Sign Up
+          </button>
         </form>
         <p style={{ marginTop: '10px' }}>
           Already have an account?{' '}
