@@ -2,9 +2,10 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import ErrorMessage from './common/ErrorMessage';
+import Input from './common/Input';
 import { validateEmailId } from '../services/signInService';
 import { signUpUser } from '../reducers/userReducer';
+import Logo from './common/Logo';
 
 function SignUp() {
   const history = useHistory();
@@ -33,66 +34,54 @@ function SignUp() {
   };
 
   return (
-    <div className="signin">
-      <Link to="/">
-        <img
-          className="signin__image"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-          alt=""
-        />
-      </Link>
-      <div className="signin__border">
+    <>
+      <Logo />
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign Up</h1>
-        <form className="sigin__form" onSubmit={handleSubmit(onSubmit)}>
-          <label>First Name</label>
-          <input
-            name="firstName"
-            className="sigin__input"
-            ref={register({ required: true, minLength: 3 })}
-          />
-          <ErrorMessage label={'First Name'} error={errors.firstName} min={3} />
-
-          <label>Last Name</label>
-          <input
-            name="lastName"
-            className="sigin__input"
-            ref={register({ required: true, minLength: 2 })}
-          />
-          <ErrorMessage label={'Last Name'} error={errors.lastName} min={2} />
-
-          <label>Email</label>
-          <input
-            name="email"
-            className="sigin__input"
-            ref={register({
-              required: true,
-              pattern: /^\S+@\S+$/i,
-              validate: validateEmail,
-            })}
-            onBlur={() => trigger('email')}
-          />
-          <ErrorMessage label={'Email'} error={errors.email} />
-          <label>Password</label>
-          <input
-            name="password"
-            className="sigin__input"
-            type="password"
-            ref={register({ required: true, minLength: 8 })}
-          />
-          <ErrorMessage label={'Password'} error={errors.password} min={8} />
-
-          <button disabled={isSubmitting} type="submit">
-            Sign Up
-          </button>
-        </form>
-        <p style={{ marginTop: '10px' }}>
+        <Input
+          label="First Name"
+          name="firstName"
+          ref={register({ required: true, minLength: 3 })}
+          error={errors.firstName}
+          min={3}
+        />
+        <Input
+          name="lastName"
+          label="Last Name"
+          ref={register({ required: true, minLength: 2 })}
+          error={errors.lastName}
+          min={2}
+        />
+        <Input
+          label="Email"
+          name="email"
+          ref={register({
+            required: true,
+            pattern: /^\S+@\S+$/i,
+            validate: validateEmail,
+          })}
+          error={errors.email}
+          onBlur={() => trigger('email')}
+        />
+        <Input
+          name="password"
+          label="Password"
+          type="password"
+          ref={register({ required: true, minLength: 8 })}
+          error={errors.password}
+          min={8}
+        />
+        <button disabled={isSubmitting} type="submit">
+          Sign Up
+        </button>
+        <span>
           Already have an account?{' '}
           <Link to="/login" style={{ textDecoration: 'none' }}>
             Sign in
           </Link>
-        </p>
-      </div>
-    </div>
+        </span>
+      </form>
+    </>
   );
 }
 
