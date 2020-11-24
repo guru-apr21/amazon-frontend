@@ -1,0 +1,56 @@
+.amazon__logo {
+  width: 100px;
+  margin: 20px auto;
+  display: block;
+}
+
+.form {
+  border: 1px solid #a6a6a6;
+  border-radius: 5px;
+  width: 350px;
+  height: max-content;
+  padding: 26px;
+  margin: 0 auto;
+}
+
+.form h1 {
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.form__label {
+  display: block;
+  padding-left: 2px;
+  padding-bottom: 2px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.form__input {
+  width: 100%;
+  display: block;
+  padding: 3px 7px;
+  border-radius: 3px;
+  border: 1px solid #a6a6a6;
+}
+
+.form button {
+  background-color: #f3cb69;
+  margin: 20px 0;
+  border-radius: 3px;
+  border: 1px solid #a6a6a6;
+  height: 30px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.form p {
+  color: #a31616;
+}
+
+.form p::before {
+  display: inline;
+  content: '⚠ ';
+}
