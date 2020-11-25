@@ -10,10 +10,7 @@ const Button = styled.button`
   background-color: ${({ secondary }) => (secondary ? '#f2f3f6' : '#f0c14b')};
   padding: 0.3em 0.6em;
   color: black;
-  width: max-content;
-  :not(:disabled) {
-    cursor: pointer;
-  }
+  cursor: pointer;
   ${({ $style }) => $style ?? {}}
 `;
 
