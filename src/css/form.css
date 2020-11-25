@@ -20,14 +20,6 @@
   line-height: 1.2;
 }
 
-.form label {
-  display: block;
-  padding-left: 2px;
-  padding-bottom: 2px;
-  font-weight: 700;
-  margin-top: 10px;
-}
-
 .form select {
   width: 100%;
   display: block;
