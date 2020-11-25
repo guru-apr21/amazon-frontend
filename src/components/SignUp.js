@@ -6,6 +6,7 @@ import Input from './common/Input';
 import { validateEmailId } from '../services/signInService';
 import { signUpUser } from '../reducers/userReducer';
 import Logo from './common/Logo';
+import Button from './common/Button';
 
 function SignUp() {
   const history = useHistory();
@@ -71,9 +72,13 @@ function SignUp() {
           error={errors.password}
           min={8}
         />
-        <button disabled={isSubmitting} type="submit">
+        <Button
+          $style={{ width: '100%' }}
+          type="submit"
+          disabled={isSubmitting}
+        >
           Sign Up
-        </button>
+        </Button>
         <span>
           Already have an account?{' '}
           <Link to="/login" style={{ textDecoration: 'none' }}>

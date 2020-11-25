@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Logo from './common/Logo';
 import Input from './common/Input';
 import { useForm } from 'react-hook-form';
+import Button from './common/Button';
 
 toast.configure();
 function SignIn() {
@@ -51,14 +52,18 @@ function SignIn() {
           error={errors.password}
         />
 
-        <button disabled={isSubmitting} type="submit">
+        <Button
+          $style={{ width: '100%' }}
+          type="submit"
+          disabled={isSubmitting}
+        >
           Sign In
-        </button>
+        </Button>
         <span>New to Amazon?</span>
         <Link to="/signup">
-          <button style={{ backgroundColor: '#f3f4f6' }}>
+          <Button $style={{ width: '100%' }} secondary>
             Create your Amazon account
-          </button>
+          </Button>
         </Link>
       </form>
     </>
