@@ -1,13 +1,12 @@
-import axios from 'axios';
+import axios from '../axios/index';
 import getToken from '../utils/token';
-const baseUrl = 'http://localhost:3001/api/cart';
 
 let token;
 
 export const getCartItems = async () => {
   token = getToken();
   if (token) {
-    const { data } = await axios.get(baseUrl, {
+    const { data } = await axios.get('cart', {
       headers: { 'x-access-token': token },
     });
     return data;
@@ -19,7 +18,7 @@ export const addToCart = async (id) => {
   try {
     token = getToken();
     const { data } = await axios.post(
-      baseUrl,
+      'cart',
       { productId: id },
       { headers: { 'x-access-token': token } }
     );
@@ -32,7 +31,7 @@ export const addToCart = async (id) => {
 export const emptyCart = async () => {
   try {
     token = getToken();
-    const { data } = await axios.delete(baseUrl, {
+    const { data } = await axios.delete('cart', {
       headers: { 'x-access-token': token },
     });
     return data;
@@ -44,7 +43,7 @@ export const emptyCart = async () => {
 export const removeFromCart = async (id) => {
   try {
     token = getToken();
-    const { data } = await axios.put(`${baseUrl}/${id}`, null, {
+    const { data } = await axios.put(`cart/${id}`, null, {
       headers: { 'x-access-token': token },
     });
     return data;
@@ -57,7 +56,7 @@ export const updateQuantity = async (id, quantity) => {
   try {
     token = getToken();
     const { data } = await axios.post(
-      baseUrl,
+      'cart',
       { productId: id, quantity },
       { headers: { 'x-access-token': token } }
     );

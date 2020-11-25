@@ -1,5 +1,4 @@
-import axios from 'axios';
-const baseUrl = 'http://localhost:3001/api/products';
+import axios from '../axios/index';
 
 const getToken = () => {
   let user = window.localStorage.getItem('loggedInUser');
@@ -10,14 +9,14 @@ const getToken = () => {
 };
 
 export const getAllProducts = async () => {
-  const { data } = await axios.get(baseUrl);
+  const { data } = await axios.get('products');
   return data;
 };
 
 export const getUserProducts = async () => {
   try {
     const { token, id } = getToken();
-    const { data } = await axios.get(`${baseUrl}/user/${id}`, {
+    const { data } = await axios.get(`products/user/${id}`, {
       headers: { 'x-access-token': token },
     });
     return data;
@@ -28,7 +27,7 @@ export const getUserProducts = async () => {
 
 export const createNewProduct = async (body) => {
   const { token } = getToken();
-  const { data } = await axios.post(`${baseUrl}`, body, {
+  const { data } = await axios.post(`products`, body, {
     headers: { 'x-access-token': token },
   });
   return data;
@@ -37,7 +36,7 @@ export const createNewProduct = async (body) => {
 export const deleteProduct = async (id) => {
   try {
     const { token } = getToken();
-    await axios.delete(`${baseUrl}/${id}`, {
+    await axios.delete(`products/${id}`, {
       headers: { 'x-access-token': token },
     });
   } catch (err) {

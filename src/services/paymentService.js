@@ -1,6 +1,5 @@
-import axios from 'axios';
+import axios from '../axios/index';
 import getToken from '../utils/token';
-const baseUrl = 'http://localhost:3001/api/stripe';
 
 let token;
 
@@ -8,7 +7,7 @@ export const createPaymentIntent = async (amount) => {
   try {
     token = getToken();
     const { data } = await axios.post(
-      `${baseUrl}/payment-intent`,
+      `stripe/payment-intent`,
       { amount },
       {
         headers: { 'x-access-token': token },
@@ -24,7 +23,7 @@ export const confirmPayment = async (paymentMethod, paymentIntentId) => {
   try {
     token = getToken();
     const { data } = await axios.post(
-      `${baseUrl}/confirm-payment`,
+      `stripe/confirm-payment`,
       { paymentMethod, paymentIntentId },
       {
         headers: { 'x-access-token': token },
