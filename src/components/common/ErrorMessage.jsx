@@ -1,20 +1,29 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Message = styled.p`
+  color: #a31616;
+  &:before {
+    display: inline;
+    content: '⚠ ';
+  }
+`;
 
 function ErrorMessage({ error, label, min }) {
   if (error) {
     switch (error.type) {
       case 'required':
-        return <p>{label} is required</p>;
+        return <Message>{label} is required</Message>;
       case 'minLength':
         return (
-          <p>
+          <Message>
             {label} should be atleast {min} characters long
-          </p>
+          </Message>
         );
       case 'pattern':
-        return <p>Invalid {label}</p>;
+        return <Message>Invalid {label}</Message>;
       case 'validate':
-        return <p>User already exists!</p>;
+        return <Message>User already exists!</Message>;
       default:
         return null;
     }

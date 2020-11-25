@@ -28,20 +28,10 @@
   margin-top: 10px;
 }
 
-.form input,
 .form select {
   width: 100%;
   display: block;
   padding: 3px 7px;
   border-radius: 3px;
   border: 1px solid #a6a6a6;
-}
-
-.form p {
-  color: #a31616;
-}
-
-.form p::before {
-  display: inline;
-  content: '⚠ ';
 }
