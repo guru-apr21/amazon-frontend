@@ -4,6 +4,7 @@ import CurrencyFormat from 'react-currency-format';
 import { useSelector } from 'react-redux';
 import { getCartTotal, getTotalItemsInCart } from '../reducers/cartReducer';
 import { useHistory } from 'react-router-dom';
+import Button from './common/Button';
 
 function SubTotal() {
   const history = useHistory();
@@ -29,7 +30,7 @@ function SubTotal() {
         )}
       ></CurrencyFormat>
 
-      <button onClick={() => history.push('/payment')}>Proceed to Buy</button>
+      <Button onClick={() => history.push('/payment')}>Proceed to Buy</Button>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import '../css/UserProducts.css';
 import { setCategory } from '../reducers/categoryReducer';
 import Input from './common/Input';
 import { useForm } from 'react-hook-form';
+import Button from './common/Button';
 
 function UserProducts() {
   const dispatch = useDispatch();
@@ -86,9 +87,9 @@ function UserProducts() {
             </option>
           ))}
         </select>
-        <button disabled={isSubmitting} type="submit">
+        <Button disabled={isSubmitting} type="submit" width="100%">
           Create Product
-        </button>
+        </Button>
       </form>
       <div className="userProducts__products">
         <h1>Your Products</h1>

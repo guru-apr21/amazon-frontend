@@ -5,6 +5,7 @@ import { clearOrders } from '../reducers/orderReducer';
 import { clearCart } from '../reducers/cartReducer';
 import { useHistory, Link } from 'react-router-dom';
 import '../css/user.css';
+import Button from './common/Button';
 
 function User() {
   const dispatch = useDispatch();
@@ -54,13 +55,13 @@ function User() {
               )}
             </ul>
           </div>
-          <button onClick={handleSignOut}>Sign Out</button>
+          <Button onClick={handleSignOut}>Sign Out</Button>
           {user.role !== 'seller' && (
-            <button onClick={handleSeller}>Start Selling</button>
+            <Button onClick={handleSeller}>Start Selling</Button>
           )}
           {user.role !== 'buyer' && (
             <Link to="/products">
-              <button>Your Products</button>
+              <Button>Your Products</Button>
             </Link>
           )}
         </>
