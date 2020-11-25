@@ -11,6 +11,7 @@ const Button = styled.button`
   padding: 0.3em 0.6em;
   color: black;
   cursor: pointer;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
   ${({ $style }) => $style ?? {}}
 `;
 
