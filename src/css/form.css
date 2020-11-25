@@ -37,17 +37,6 @@
   border: 1px solid #a6a6a6;
 }
 
-.form button {
-  background-color: #f3cb69;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  border: 1px solid #a6a6a6;
-  height: 30px;
-  cursor: pointer;
-  width: 100%;
-}
-
 .form p {
   color: #a31616;
 }

@@ -22,13 +22,3 @@
   display: flex;
   flex-direction: row;
 }
-
-.cartProduct__removeButton {
-  padding: 3px;
-  margin-top: 6px;
-  background-color: #f0c14b;
-  border: 1px solid;
-  border-color: #a88734 #9c7e31 #846a29;
-  color: #111;
-  cursor: pointer;
-}
