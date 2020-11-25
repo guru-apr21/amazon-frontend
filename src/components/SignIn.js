@@ -47,7 +47,7 @@ function SignIn() {
         <Input
           name="password"
           type="password"
-          label="password"
+          label="Password"
           ref={register({ required: true })}
           error={errors.password}
         />
