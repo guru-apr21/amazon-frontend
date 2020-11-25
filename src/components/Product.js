@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/Product.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Button from './common/Button';
 import {
   addProductToCart,
   updateProductQuantity,
@@ -47,14 +48,14 @@ function Product({ id, title, image, price, rating = 0 }) {
         </div>
       </div>
       <img src={image} alt="" />
-      <button
+      <Button
         disabled={
           product && (product.productId.price > 50000 || product.quantity > 9)
         }
         onClick={handleAddToCart}
       >
         Add to Cart
-      </button>
+      </Button>
     </div>
   );
 }

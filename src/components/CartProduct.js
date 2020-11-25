@@ -64,27 +64,27 @@ function CartProduct({
 
         {!hideButtons && (
           <div className="cartProduct__quantity">
-            <button
+            <Button
+              secondary
               disabled={price > 50000 || quantity > 9}
               onClick={handleIncrement}
             >
               +
-            </button>
+            </Button>
             <span>{quantity}</span>
-            <button
+            <Button
+              secondary
               disabled={price > 50000 || quantity < 2}
               onClick={handleDecrement}
             >
               -
-            </button>
+            </Button>
           </div>
         )}
         {!hideButtons && (
-          <button className="cartProduct__removeButton" onClick={handleRemove}>
-            Remove from basket
-          </button>
+          <Button onClick={handleRemove}>Remove from basket</Button>
         )}
-        {showDelete && <Button label="Delete" handler={handleDelete}></Button>}
+        {showDelete && <Button onClick={handleDelete}>Delete</Button>}
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import CartProduct from './CartProduct';
 import { newOrder } from '../reducers/orderReducer';
+import Button from './common/Button';
 import {
   confirmPayment,
   createPaymentIntent,
@@ -127,9 +128,13 @@ function Payment() {
                   thousandSeparator={true}
                   renderText={(value) => <h3>Order Total: ₹{value}</h3>}
                 ></CurrencyFormat>
-                <button type="submit" disabled={processing || disabled}>
+                <Button
+                  $style={{ width: '100%' }}
+                  type="submit"
+                  disabled={processing || disabled}
+                >
                   <span>{processing ? 'Processing' : 'Buy Now'}</span>
-                </button>
+                </Button>
               </form>
             </div>
           </div>
