@@ -4,7 +4,7 @@ import { setUserProducts, createProduct } from '../reducers/productReducer';
 import CartProduct from './CartProduct';
 import '../css/UserProducts.css';
 import { setCategory } from '../reducers/categoryReducer';
-import Input from './common/Input';
+import Input from 'input-hook';
 import { useForm } from 'react-hook-form';
 import Button from './common/Button';
 
@@ -50,28 +50,29 @@ function UserProducts() {
           label="Title"
           name="title"
           error={errors.title}
-          ref={register({ required: true })}
+          register={register}
         />
         <Input
-          type="number"
+          type="currency"
+          format="inr"
           name="price"
           label="Price"
           error={errors.price}
-          ref={register({ required: true, min: 10 })}
+          register={register}
         />
         <Input
           name="images"
           label="Product Images"
           type="file"
-          ref={register({ required: true })}
-          multiple={true}
+          register={register}
           error={errors.images}
+          multiple
         />
         <Input
           name="brand"
           label="Brand"
           error={errors.brand}
-          ref={register({ required: true })}
+          register={register}
         />
 
         <label htmlFor="category">Choose a category:</label>
