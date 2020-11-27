@@ -11,6 +11,8 @@
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
+    "currency-symbol-map": "^4.0.4",
+    "input-hook": "^2.5.0",
     "joi": "^17.3.0",
     "moment": "^2.29.1",
     "react": "^17.0.1",
