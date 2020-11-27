@@ -27,6 +27,7 @@ function SignUp() {
       return false;
     }
   };
+  //Hello world
 
   const onSubmit = (data, e) => {
     dispatch(signUpUser(data));
