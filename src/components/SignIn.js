@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Logo from './common/Logo';
-import Input from './common/Input';
+import Input from 'input-hook';
 import { useForm } from 'react-hook-form';
 import Button from './common/Button';
 
@@ -41,14 +41,14 @@ function SignIn() {
         <Input
           name="email"
           label="Email"
-          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+          register={register}
           error={errors.email}
         />
         <Input
           name="password"
           type="password"
           label="Password"
-          ref={register({ required: true })}
+          register={register}
           error={errors.password}
         />
 

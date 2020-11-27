@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import Input from './common/Input';
+import Input from 'input-hook';
 import { validateEmailId } from '../services/signInService';
 import { signUpUser } from '../reducers/userReducer';
 import Logo from './common/Logo';
@@ -24,7 +24,7 @@ function SignUp() {
       await validateEmailId(value);
       return true;
     } catch (error) {
-      return false;
+      return 'User already exists';
     }
   };
   //Hello world
@@ -43,35 +43,31 @@ function SignUp() {
         <Input
           label="First Name"
           name="firstName"
-          ref={register({ required: true, minLength: 3 })}
+          register={register}
           error={errors.firstName}
-          min={3}
+          condition={{ required: 'First Name is required' }}
         />
         <Input
           name="lastName"
           label="Last Name"
-          ref={register({ required: true, minLength: 2 })}
+          register={register}
           error={errors.lastName}
-          min={2}
         />
         <Input
           label="Email"
           name="email"
-          ref={register({
-            required: true,
-            pattern: /^\S+@\S+$/i,
-            validate: validateEmail,
-          })}
+          type="email"
+          register={register}
           error={errors.email}
+          condition={{ validate: validateEmail }}
           onBlur={() => trigger('email')}
         />
         <Input
           name="password"
           label="Password"
           type="password"
-          ref={register({ required: true, minLength: 8 })}
+          register={register}
           error={errors.password}
-          min={8}
         />
         <Button
           $style={{ width: '100%' }}
